@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Profit Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(255, 215, 0); /* Yellow color using RGB values */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .popup-icon {
+            color: #fff; /* White color for the icon */
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-200 h-screen">
+
+    <div class="popup bg-white p-8 rounded-lg shadow-md" id="rightClickPopup">
+        <i class="fas fa-bolt popup-icon"></i>
+        <p class="text-lg font-bold">Follow hamzaestix!</p>
+    </div>
+
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            
+            // Show the pop-up at the right-click location
+            var popup = document.getElementById('rightClickPopup');
+            popup.style.display = 'block';
+            popup.style.top = e.clientY + 'px';
+            popup.style.left = e.clientX + 'px';
+            
+            // Hide the pop-up after a short delay (e.g., 2 seconds)
+            setTimeout(function () {
+                popup.style.display = 'none';
+            }, 2000);
+        });
+    </script>
+
+    <h1>Bitcoin Profit Calculator</h1>
+    <div class="calculator-container">
+        <label for="pkrAmount">PKR Amount:</label>
+        <input type="number" id="pkrAmount" placeholder="Enter PKR amount">
+        <br>
+        <label for="pkrToUsdtRate">PKR to USDT Rate:</label>
+        <input type="number" id="pkrToUsdtRate" placeholder="Enter PKR to USDT rate">
+        <br>
+        <label for="buyPrice">Buying Price (USDT):</label>
+        <input type="number" id="buyPrice" placeholder="Enter buying price">
+        <br>
+        <label for="sellPrice">Selling Price (USDT):</label>
+        <input type="number" id="sellPrice" placeholder="Enter selling price">
+        <br>
+        <label for="quantity">Quantity (BTC):</label>
+        <input type="number" id="quantity" placeholder="Enter amount of BTC">
+        <br>
+        <button onclick="calculateProfit()">Calculate Profit</button>
+        <p id="result"></p>
+    </div>
+</div>
+<div class="disclaimer">
+    <p>Disclaimer: This calculator is for informational purposes only and does not constitute financial advice. Please do your own research before making any investment decisions.</p>
+</div>
+</div>
+
+    <script>
+        function calculateProfit() {
+            const pkrAmount = parseFloat(document.getElementById("pkrAmount").value);
+            const pkrToUsdtRate = parseFloat(document.getElementById("pkrToUsdtRate").value);
+            const usdtAmount = pkrAmount / pkrToUsdtRate;
+
+            const buyPrice = parseFloat(document.getElementById("buyPrice").value);
+            const sellPrice = parseFloat(document.getElementById("sellPrice").value);
+            const quantity = parseFloat(document.getElementById("quantity").value);
+
+            const priceDifference = sellPrice - buyPrice;
+            const profitUsdt = priceDifference * quantity;
+            const profitPkr = profitUsdt * pkrToUsdtRate;
+
+            document.getElementById("result").textContent = `
+                Your profit in USDT: $${profitUsdt.toFixed(2)}
+                <br>
+                Your profit in PKR: ${profitPkr.toFixed(2)}
+            `;
+        }
+    
+    </script>
+    <style>
+      body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.calculator-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.calculator-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.calculator-container input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.calculator-container button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.calculator-container button:hover {
+  background-color: #3e8e41;
+}
+
+#result {
+  font-weight: bold;
+}
+
+    </style>
+
+   
+</body>
+</html>
